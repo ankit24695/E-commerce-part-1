@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Database</title>
+    <link rel="stylesheet" href="commonStyles.css" />
+  </head>
+
+  <body>
+    <div id="links">
+      <div><a href="index.html">Home</a></div>
+      <div><a href="applied.html">Applied Jobs</a></div>
+      <div><a href="bookmark.html">Bookmarks</a></div>
+    </div>
+
+    <main>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Job applied</th>
+            <th>Salary expected</th>
+            <th>Add to bookmark</th>
+          </tr>
+        </thead>
+        <tbody id="body">
+          <!-- Append your output to tbody -->
+        </tbody>
+      </table>
+    </main>
+  </body>
+  <script>
+   var obj = JSON.parse(localStorage.getItem("jobList"));
+
+   var parent = document.querySelector("#body");
+
+   displaydata(obj)
+
+   var arr2=JSON.parse(localStorage.getItem("bookmark"))||[];
+
+   function displaydata(obj){
+    obj.forEach(function(element){
+  var box = document.createElement("tr")
+
+var name = document.createElement("td")
+name.innerText=element.name;
+var email = document.createElement("td")
+email.innerText=element.email;
+var role = document.createElement("td")
+role.innerText=element.role;
+var salary = document.createElement("td")
+salary.innerText=element.salary;
+
+var btn = document.createElement("td")
+btn.innerText="Bookmark"
+btn.style.color="green"
+btn.style.cursor="pointer"
+
+btn.addEventListener("click",function(){
+  bookMarkFunction(element)
+})
+
+box.append(name,email,role,salary,btn)
+
+parent.append(box);
+})
+function bookMarkFunction(ele){
+  arr2.push(ele);
+  localStorage.setItem("bookmark",JSON.stringify(arr2));
+}
+    
+   }
+  </script>
+</html>
