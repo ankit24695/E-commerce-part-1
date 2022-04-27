@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="nav">
+        <div>Reebok</div>
+        <div>
+            <div>
+                <a id="enb1">MENS</a>
+                </div>
+                <div >
+                    <a  id="enb1">WOMENS</a>
+                </div>
+                <div>
+                    <a href="login.html">Login</a>
+                </div>
+                <div>
+                    <a href="signup.html">Sign Up</a>
+                </div>
+        </div>
+    </div>
+    <h1>Sign in</h1>
+    <form id="form">
+        <label for="">email</label><br />
+        <input id="mail" type="text" placeholder="Enter the email" /><br />
+        <label for="">Password</label><br />
+        <input id="pass" type="text" placeholder="Enter the password" /><br />
+        <input type="submit" />
+      </form> 
+</body>
+</html>
+
+<script>
+    var form =document.querySelector("#form");
+    form.addEventListener("submit", myfunction)
+    
+    function myfunction(){
+        event.preventDefault();
+    
+    var array = JSON.parse(localStorage.getItem("detailarray"));
+    
+    var enteremail = document.querySelector("#mail").value;
+    
+    var pass = document.querySelector("#pass").value;
+    
+    var flag=0;
+    array.forEach(function(ele){
+      if(ele.email==enteremail){
+          flag=1;
+        if(ele.email==enteremail && ele.password==pass){
+        alert("login successful");
+        document.querySelector("#enb1").setAttribute("href","mens.html")
+        document.querySelector("#enb2").setAttribute("href","womens.html")
+          }
+      else{
+        alert("Wrong Credentials")
+        window.location.href="signup.html"
+    } 
+      }
+    })
+
+    if(flag==0){
+        alert("You have not signup");  
+        window.location.href="signup.html" 
+    }
+
+
+    }
+    
+
+    
+    </script>
