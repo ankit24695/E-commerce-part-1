@@ -40,9 +40,23 @@ img{
                 <div>
                     <a href="signup.html">Sign Up</a>
                 </div>
+                <div>
+                    <a href="cart.html">CART</a>
+                </div>
         </div>
     </div>
     <h1>Womens Page</h1>
+    <select name="" id="sortname" onChange="sortname()">
+        <option value="">Sort By Name</option>
+        <option value="asc">Ascending</option>
+        <option value="des">Descending</option>
+    </select>
+
+    <select name="" id="sortprice" onChange="sortpri()">
+        <option value="">Sort By Price</option>
+        <option value="asc1">Low to High</option>
+        <option value="des1">High to Low</option>
+    </select>
     <div class="container">
 
     </div>
@@ -55,6 +69,13 @@ img{
 
     var obj = JSON.parse(localStorage.getItem("womensdata"));
 
+    display(obj);
+    
+    var cartarr = JSON.parse(localStorage.getItem("cartItem"))||[];
+
+
+    function display(obj){
+     parent.innerHTML="";
     obj.map(function(ele){
 var box = document.createElement("div");
 
@@ -72,11 +93,73 @@ price.innerText = ele.price;
 var btn = document.createElement("button");
 btn.innerText = "Add to Cart"
 btn.style.padding = "10px 15px"
+btn.addEventListener("click",function(){
+    addtocart(ele)
+})
 
 box.append(img, head, price, btn)
 
 parent.append(box);
     
 })
+ }
 
+
+
+function addtocart(ele){
+cartarr.push(ele)
+localStorage.setItem("cartItem",JSON.stringify(cartarr));
+
+}
+
+
+
+function sortname(){
+    var select = document.querySelector("#sortname").value;
+    if(select=="asc"){
+     obj.sort(function(a,b){
+         var x = a.name.toUpperCase();
+         var y = b.name.toUpperCase();
+         if(x>y){
+             return 1;
+         }
+         if(x<y){
+             return -1
+         }
+         return 0;
+     })
+     display(obj);
+    }
+    if(select=="des"){
+        obj.sort(function(a,b){
+         var x = a.name.toUpperCase();
+         var y = b.name.toUpperCase();
+         if(x>y){
+             return -1;
+         }
+         if(x<y){
+             return 1
+         }
+         return 0;
+     })
+     display(obj);
+    }
+}
+
+
+function sortpri(){
+    var selected = document.querySelector("#sortprice").value
+    if(selected=="asc1"){
+        obj.sort(function(a,b){
+            return a.price-b.price;
+        })
+        display(obj);
+    }
+    if(selected=="des1"){
+        obj.sort(function(a,b){
+            return b.price-a.price;
+        })
+        display(obj);
+    }
+}
 </script>

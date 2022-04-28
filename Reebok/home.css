@@ -1,9 +1,16 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
 .nav{
     display:flex;
     justify-content: space-between;
     background-color: rgb(38, 28, 95);
     padding: 10px 15px;
     border-radius: 10px;
+    margin-top:0px;
+    width:100%;
+    position:fixed;
   }
   .nav>div:first-child{
       font-size: 22px;
@@ -65,3 +72,57 @@
       text-align: center;
       color:#2b619e;
   }
+  table,
+  td,
+  th {
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 70%;
+    margin: auto;
+    margin-top: 50px;
+  }
+
+  select{
+    width:10%;
+  }
+  
+  th,
+  td {
+    padding: 15px;
+  }
+  
+  tr > th {
+    background-color: teal;
+    color: white;
+  }
+  .display{
+      width:30%;
+      display:flex;
+      margin:auto;
+      border:2px solid green;
+      margin-top:10px;
+      justify-content: space-around;
+  }
+  .orig{
+    width:30%;
+    display:flex;
+    margin:auto;
+    border:2px solid rgb(199, 171, 187);
+    margin-top:10px;
+    justify-content: space-around;
+}
+#pay{
+display:block;
+margin:auto;
+padding:10px 15px;
+border:0px;
+margin-top: 20px;
+margin-bottom: 40px;
+background-color: green;
+color:white;
+
+}

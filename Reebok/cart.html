@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="home.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="nav">
+        <div>Reebok</div>
+        <div>
+            <div>
+                <a href="mens.html">MENS</a>
+                </div>
+                <div>
+                    <a href="womens.html">WOMENS</a>
+                </div>
+                <div>
+                    <a href="login.html">Login</a>
+                </div>
+                <div>
+                    <a href="signup.html">Sign Up</a>
+                </div>
+                <div>
+                    <a href="cart.html">CART</a>
+                </div>
+        </div>
+    </div>
+    <h1>CART</h1>
+    <main>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody id="body">
+            <!-- Append your output to tbody -->
+          </tbody>
+        </table>
+        <div class="display">
+            <h3>Total Amount</h3>
+
+        </div>
+        <div class="orig"></div>
+        <form id="promo">
+   <label for="">Promocode</label>
+   <input  id="pro" type="text" class="text" placeholder="Enter the promocode">
+   <input type="submit" class="submit">
+        </form>
+        <button class="pay">Make Payment</button>
+      </main>
+
+    </div>
+</body>
+</html>
+
+
+<script>
+var parent=document.querySelector("#body");
+
+var obj = JSON.parse(localStorage.getItem("cartItem"))
+
+
+obj.forEach(function(ele,index){
+
+var box = document.createElement("tr")
+
+var name = document.createElement("td")
+name.innerText= ele.name;
+
+var price=document.createElement("td")
+price.innerText = ele.price;
+
+
+var quan=document.createElement("td")
+quan.innerText = 1;
+
+var total=document.createElement("td")
+total.innerText = ele.price;
+
+
+var stat=document.createElement("td")
+stat.innerText = "Delete"
+stat.style.color="red"
+stat.style.cursor="pointer"
+stat.addEventListener("click",function(){
+    delfun(ele,index);
+})
+
+
+box.append(name, price, quan, total,stat)
+
+parent.append(box);
+
+
+
+})
+
+var sum = obj.reduce(function(acc,ele){
+return acc+(ele.price)
+},0)
+
+var parent2 = document.querySelector(".display")
+
+var amount = document.createElement("h3")
+amount.setAttribute("id","amt")
+amount.innerText = sum;
+
+parent2.append(amount);
+
+
+
+
+
+
+function delfun(ele,ind){
+    obj.splice(ind,1);
+    localStorage.setItem("cartItem",JSON.stringify(obj))
+    window.location.reload()
+}
+
+
+var form2 = document.querySelector("#promo")
+form2.addEventListener("submit",profun)
+
+
+var parent3 = document.querySelector(".orig");
+
+function profun(){
+    event.preventDefault();
+
+    var prom = promo.pro.value
+
+   if(prom=="masai30"){
+       alert("Promocode applied Successfully")
+       x=sum;
+       sum = 0.7*sum;
+       document.querySelector("#amt").innerText=sum;
+       var p = document.createElement("p");
+       p.innerText = "Original Amount"
+       var p2 = document.createElement("p");
+       p2.innerText = x
+       parent3.append(p,p2);
+
+   }
+   else{
+       alert("Promocode Invalid")
+   }
+
+
+}
+
+document.querySelector(".pay").addEventListener("click",clfun)
+
+function clfun(){
+    window.location.href="payment.html"
+}
+
+</script>
